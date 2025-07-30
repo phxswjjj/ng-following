@@ -1,4 +1,4 @@
-import { UserInfo } from "./userInfo";
+import { UserInfo } from "./Entity/userInfo";
 
 export class UserComparer {
   public static compare(originalList: string[], newList: string[]): CompareResult {
