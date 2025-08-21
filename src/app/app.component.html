@@ -1,23 +1,44 @@
 <div>
-  <div>原始資料:</div>
-  <textarea rows="5" [(ngModel)]="originalList"></textarea>
+  <button *ngIf="showInputUserType == InputUserType.NA" (click)="showInputUserType = InputUserType.Origin">Add Origin</button>
+  <span style="display: inline-block; width: 1em;"></span>
+  <button *ngIf="showInputUserType == InputUserType.NA" (click)="showInputUserType = InputUserType.New">Add New</button>
+  <div *ngIf="showInputUserType != InputUserType.NA">
+    <div>
+      {{ showInputUserType == InputUserType.Origin ? 'Add Origin User' : 'Add New User' }}
+    </div>
+    <textarea [(ngModel)]="inputUsersText" rows="5" cols="20" placeholder="Enter multiple entries, one per line"></textarea>
+    <br>
+    <button (click)="submitInputUsers()">Submit</button>
+    <button (click)="showInputUserType = InputUserType.NA">Cancel</button>
+  </div>
 </div>
-<hr />
+<div style="height: 1em;"></div>
 <div>
-  <div>新的資料:</div>
-  <textarea rows="5" [(ngModel)]="newList"></textarea>
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th>User Name</th>
+        <th>Origin</th>
+        <th>New</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of compareResult">
+        <td class="user-name">{{ item.userName }}</td>
+        <td>
+          <span *ngIf="item.isOrigin">&#10003;</span>
+        </td>
+        <td>
+          <span *ngIf="item.isNew">&#10003;</span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
-<hr />
+<div style="height: 1em;"></div>
 <div>
-  <input type="button" value="compare" (click)="compare()" />
-</div>
-<div>
-  <code>
-      Added Users: {{ compareResult?.added | json }}
-    </code>
-</div>
-<div>
-  <code>
-      Removed Users: {{ compareResult?.removed | json }}
-    </code>
+  <button (click)="combineResults()">Combine Result</button>
+  <div *ngIf="combineResult.length > 0">
+    <textarea #resultTextarea [value]="combineResult.join('\n')" rows="5" cols="20" placeholder="Combined result will appear here..." readonly (click)="copyToClipboard(resultTextarea)"></textarea>
+  </div>
 </div>
