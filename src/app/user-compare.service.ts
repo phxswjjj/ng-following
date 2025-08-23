@@ -10,6 +10,7 @@ export class UserCompareService {
   // 新增兩個字串集合
   private originalSet: Set<string> = new Set();
   private newSet: Set<string> = new Set();
+  private fullCompareResult: CompareResultItem[] = [];
 
   // 讓外部可訂閱
   get compareResult$(): Observable<CompareResultItem[] | null> {
@@ -42,8 +43,35 @@ export class UserCompareService {
         }
     });
     result.sort((a, b) => a.userName.localeCompare(b.userName));
+    this.fullCompareResult = result;
     this.updateCompareResult(result);
     return result;
+  }
+
+  filterResults(filterType: QueryFilterType): CompareResultItem[] {
+    if (!this.compareResultSubject.value) {
+      return [];
+    }
+    let results = this.fullCompareResult;
+    switch (filterType) {
+      case QueryFilterType.Intersection:
+        results = results.filter((item: CompareResultItem) => item.isOrigin && item.isNew);
+        break
+      case QueryFilterType.Exclusive:
+        results = results.filter((item: CompareResultItem) => (item.isOrigin && !item.isNew) || (!item.isOrigin && item.isNew));
+        break
+      case QueryFilterType.OnlyOrigin:
+        results = results.filter((item: CompareResultItem) => item.isOrigin && !item.isNew);
+        break
+      case QueryFilterType.OnlyNew:
+        results = results.filter((item: CompareResultItem) => !item.isOrigin && item.isNew);
+        break
+      default:
+        results = results;
+        break
+    }
+    this.updateCompareResult(results);
+    return results;
   }
 
   // 更新資料的方法
@@ -58,4 +86,14 @@ export class CompareResultItem {
     public isOrigin: boolean,
     public isNew: boolean
   ) {}
+}
+
+export enum QueryFilterType {
+  All = 'all',
+  //交集
+  Intersection = 'intersection',
+  //互斥
+  Exclusive = 'exclusive',
+  OnlyOrigin = 'onlyOrigin',
+  OnlyNew = 'onlyNew',
 }

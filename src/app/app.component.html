@@ -14,6 +14,17 @@
 </div>
 <div style="height: 1em;"></div>
 <div>
+  <span>篩選：</span>
+  <select [(ngModel)]="selectedFilter" (change)="filterCompareResult()">
+    <option value="all">全部</option>
+    <option value="intersection">交集</option>
+    <option value="exclusive">互斥</option>
+    <option value="onlyOrigin">Only Origin</option>
+    <option value="onlyNew">Only New</option>
+  </select>
+</div>
+<div style="height: 1em;"></div>
+<div>
   <table class="compare-table">
     <thead>
       <tr>

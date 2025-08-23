@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { UserCompareService, CompareResultItem } from './user-compare.service';
+import { UserCompareService, CompareResultItem, QueryFilterType } from './user-compare.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -16,6 +16,8 @@ export class AppComponent implements OnInit, OnDestroy {
   InputUserType = InputUserType;
   showInputUserType = InputUserType.NA;
   inputUsersText: string | null = null;
+
+  selectedFilter: QueryFilterType = QueryFilterType.All;
 
   compareResult: CompareResultItem[] | null = null;
   combineResult: string[] = [];
@@ -60,6 +62,30 @@ export class AppComponent implements OnInit, OnDestroy {
     this.showInputUserType = InputUserType.NA;
 
     this.userCompareService.compareResults();
+  }
+
+  filterCompareResult(): void {
+    if (!this.compareResult) {
+      return;
+    }
+
+    switch (this.selectedFilter) {
+      case QueryFilterType.All:
+        this.userCompareService.filterResults(QueryFilterType.All);
+        break;
+      case QueryFilterType.Intersection:
+        this.userCompareService.filterResults(QueryFilterType.Intersection);
+        break;
+      case QueryFilterType.Exclusive:
+        this.userCompareService.filterResults(QueryFilterType.Exclusive);
+        break;
+      case QueryFilterType.OnlyOrigin:
+        this.userCompareService.filterResults(QueryFilterType.OnlyOrigin);
+        break;
+      case QueryFilterType.OnlyNew:
+        this.userCompareService.filterResults(QueryFilterType.OnlyNew);
+        break;
+    }
   }
 }
 
