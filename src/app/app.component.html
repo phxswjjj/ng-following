@@ -1,16 +1,5 @@
 <div>
-  <button *ngIf="showInputUserType == InputUserType.NA" (click)="showInputUserType = InputUserType.Origin">Add Origin</button>
-  <span style="display: inline-block; width: 1em;"></span>
-  <button *ngIf="showInputUserType == InputUserType.NA" (click)="showInputUserType = InputUserType.New">Add New</button>
-  <div *ngIf="showInputUserType != InputUserType.NA">
-    <div>
-      {{ showInputUserType == InputUserType.Origin ? 'Add Origin User' : 'Add New User' }}
-    </div>
-    <textarea [(ngModel)]="inputUsersText" rows="5" cols="20" placeholder="Enter multiple entries, one per line"></textarea>
-    <br>
-    <button (click)="submitInputUsers()">Submit</button>
-    <button (click)="showInputUserType = InputUserType.NA">Cancel</button>
-  </div>
+  <app-edit-panel></app-edit-panel>
 </div>
 <div style="height: 1em;"></div>
 <div>
