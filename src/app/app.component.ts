@@ -17,6 +17,9 @@ export class AppComponent implements OnInit, OnDestroy {
   showInputUserType = InputUserType.NA;
   inputUsersText: string | null = null;
 
+  UserSourceType = UserSourceType;
+  showUserSourceType = UserSourceType.NA;
+
   selectedFilter: QueryFilterType = QueryFilterType.All;
 
   compareResult: CompareResultItem[] | null = null;
@@ -93,4 +96,10 @@ export enum InputUserType {
   NA,
   Origin,
   New,
+}
+
+export enum UserSourceType {
+  NA,
+  IG,
+  Threads,
 }
