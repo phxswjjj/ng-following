@@ -89,6 +89,14 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy",
+          "options": {
+            "baseHref": "/ng-following/",
+            "name": "$name",
+            "email": "$email"
+          }
         }
       }
     }
