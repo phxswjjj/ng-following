@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CompareResultItem, UserCompareService } from '../user-compare.service';
 import { CommonModule } from '@angular/common';
@@ -21,6 +21,8 @@ export class EditPanelComponent {
   combineResult: string[] = [];
   private compareSub?: Subscription;
 
+  @ViewChild('inputUserTextArea') inputUserTextArea?: ElementRef<HTMLTextAreaElement>;
+
   constructor(private userCompareService: UserCompareService) { }
 
   ngOnInit(): void {
@@ -33,6 +35,18 @@ export class EditPanelComponent {
     this.compareSub?.unsubscribe();
   }
 
+  showInputUserTextArea(inputUserType: InputUserType) {
+    this.showInputUserType = inputUserType;
+    if (inputUserType != InputUserType.NA) {
+      setTimeout(() => {
+        if (this.inputUserTextArea) {
+          if (this.inputUserTextArea.nativeElement.offsetParent !== null) {
+            this.inputUserTextArea.nativeElement.focus();
+          }
+        }
+      });
+    }
+  }
   submitInputUsers(): void {
     const inputUsers = (this.inputUsersText ?? '').split('\n').map(line => line.trim()).filter(line => line.length > 0);
 
