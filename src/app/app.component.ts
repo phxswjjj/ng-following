@@ -4,11 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { UserCompareService, CompareResultItem, QueryFilterType } from './user-compare.service';
 import { Subscription } from 'rxjs';
 import { EditPanelComponent } from './edit-panel/edit-panel.component';
+import { CombinePanelComponent } from './combine-panel/combine-panel.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, FormsModule, EditPanelComponent],
+  imports: [CommonModule, FormsModule, EditPanelComponent, CombinePanelComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -20,7 +21,6 @@ export class AppComponent implements OnInit, OnDestroy {
   selectedFilter: QueryFilterType = QueryFilterType.All;
 
   compareResult: CompareResultItem[] | null = null;
-  combineResult: string[] = [];
   private compareSub?: Subscription;
 
   constructor(private userCompareService: UserCompareService) { }
@@ -33,19 +33,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.compareSub?.unsubscribe();
-  }
-
-  combineResults(): void {
-    if (this.compareResult) {
-      this.combineResult = this.compareResult.map(item => {
-        return item.userName;
-      });
-    }
-  }
-
-  copyToClipboard(resultTextarea: HTMLTextAreaElement): void {
-    resultTextarea.select();
-    document.execCommand('copy');
   }
 
   filterCompareResult(): void {
