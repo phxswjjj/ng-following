@@ -1,4 +1,4 @@
-<button (click)="combineResults()">Combine Result</button>
+<button *ngIf="this.compareResult" (click)="combineResults()">Combine Result</button>
 <div *ngIf="combineResult.length > 0">
   <textarea #resultTextarea [value]="combineResult.join('\n')" rows="5" cols="20"
     placeholder="Combined result will appear here..." readonly (click)="copyToClipboard(resultTextarea)"></textarea>

@@ -2,7 +2,7 @@
   <app-edit-panel></app-edit-panel>
 </div>
 <div style="height: 1em;"></div>
-<div>
+<div *ngIf="this.compareResult">
   <span>來源： </span>
   <select [(ngModel)]="showUserSourceType">
     <option [ngValue]="UserSourceType.NA">NA</option>
@@ -21,7 +21,7 @@
 </div>
 <div style="height: 1em;"></div>
 <div>
-  <table class="compare-table">
+  <table *ngIf="this.compareResult" class="compare-table">
     <thead>
       <tr>
         <th>User Name</th>
