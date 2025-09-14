@@ -1,7 +1,7 @@
-<button *ngIf="showInputUserType == InputUserType.NA" (click)="showInputUserTextArea(InputUserType.Origin)">Add
+<button pButton *ngIf="showInputUserType == InputUserType.NA" (click)="showInputUserTextArea(InputUserType.Origin)">Add
   Origin</button>
 <span style="display: inline-block; width: 1em;"></span>
-<button *ngIf="showInputUserType == InputUserType.NA" (click)="showInputUserTextArea(InputUserType.New)">Add
+<button pButton *ngIf="showInputUserType == InputUserType.NA" (click)="showInputUserTextArea(InputUserType.New)">Add
   New</button>
 <div *ngIf="showInputUserType != InputUserType.NA">
   <div>
@@ -11,6 +11,6 @@
     (keydown.escape)="showInputUserType = InputUserType.NA" (keydown.enter)="submitInputUsers()"
     placeholder="Enter multiple entries, one per line"></textarea>
   <br>
-  <button (click)="submitInputUsers()">Submit</button>
-  <button (click)="showInputUserType = InputUserType.NA">Cancel</button>
+  <button pButton (click)="submitInputUsers()">Submit</button>
+  <button pButton (click)="showInputUserType = InputUserType.NA">Cancel</button>
 </div>

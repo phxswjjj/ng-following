@@ -3,11 +3,15 @@ import { Subscription } from 'rxjs';
 import { CompareResultItem, UserCompareService } from '../user-compare.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-edit-panel',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [
+    CommonModule, FormsModule,
+    ButtonModule
+  ],
   templateUrl: './edit-panel.component.html',
   styleUrl: './edit-panel.component.css'
 })

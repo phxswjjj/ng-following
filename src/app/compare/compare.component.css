@@ -1,0 +1,15 @@
+.compare-table {
+  border-collapse: collapse;
+  border: 2px solid #ddd;
+}
+
+.compare-table th,
+.compare-table td {
+  border: 2px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.compare-table .user-name {
+  text-align: left;
+}

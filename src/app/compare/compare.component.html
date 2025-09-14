@@ -1,0 +1,52 @@
+<div>
+  <app-edit-panel></app-edit-panel>
+</div>
+<div style="height: 1em;"></div>
+<div *ngIf="this.compareResult">
+  <span>來源： </span>
+  <select [(ngModel)]="showUserSourceType">
+    <option [ngValue]="UserSourceType.NA">NA</option>
+    <option [ngValue]="UserSourceType.IG">IG</option>
+    <option [ngValue]="UserSourceType.Threads">Threads</option>
+  </select>
+  <span style="display: inline-block; width: 1em;"></span>
+  <span>篩選：</span>
+  <select [(ngModel)]="selectedFilter" (change)="filterCompareResult()">
+    <option value="all">全部</option>
+    <option value="intersection">交集</option>
+    <option value="exclusive">互斥</option>
+    <option value="onlyOrigin">Only Origin</option>
+    <option value="onlyNew">Only New</option>
+  </select>
+</div>
+<div style="height: 1em;"></div>
+<div>
+  <table *ngIf="this.compareResult" class="compare-table">
+    <thead>
+      <tr>
+        <th>User Name</th>
+        <th>Origin</th>
+        <th>New</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of compareResult">
+        <td class="user-name">
+          <span *ngIf="showUserSourceType === UserSourceType.NA">{{ item.userName }}</span>
+          <a *ngIf="showUserSourceType === UserSourceType.IG" [href]="'https://www.instagram.com/' + item.userName" target="_blank">{{ item.userName }}</a>
+          <a *ngIf="showUserSourceType === UserSourceType.Threads" [href]="'https://www.threads.com/@' + item.userName" target="_blank">{{ item.userName }}</a>
+        </td>
+        <td>
+          <span *ngIf="item.isOrigin">&#10003;</span>
+        </td>
+        <td>
+          <span *ngIf="item.isNew">&#10003;</span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div style="height: 1em;"></div>
+<div>
+  <app-combine-panel></app-combine-panel>
+</div>
