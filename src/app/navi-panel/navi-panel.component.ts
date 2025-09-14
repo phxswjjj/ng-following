@@ -19,17 +19,10 @@ export class NaviPanelComponent {
   items: MenuItem[] = [];
 
   constructor(private router: Router) {
-    this.items = [
-      {
-        label: 'Home',
-        icon: 'pi pi-home',
-        url: '',
-      },
-      {
-        label: 'Compare',
-        icon: 'pi pi-compare',
-        url: '/compare',
-      }
-    ];
+    this.items = this.router.config
+      .map(route => ({
+        label: String(route.title),
+        url: route.path ?? '/',
+      }));
   }
 }

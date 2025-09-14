@@ -14,17 +14,10 @@ export class MenuPanelComponent {
   items: MenuItem[] = [];
 
   constructor(private router: Router) {
-    this.items = [
-      {
-        label: 'Home',
-        icon: 'pi pi-home',
-        command: () => this.router.navigate(['/'])
-      },
-      {
-        label: 'Compare',
-        icon: 'pi pi-compare',
-        command: () => this.router.navigate(['/compare'])
-      }
-    ];
+    this.items = this.router.config
+      .map(route => ({
+        label: String(route.title),
+        url: route.path ?? '/',
+      }));
   }
 }
